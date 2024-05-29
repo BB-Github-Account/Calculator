@@ -74,6 +74,7 @@ function operate(n1, n2, op){
         result = n1 / n2;
     }
 
+    firstNumb = null;
     displayVal = result;
     updateDisplay();
 }
