@@ -17,10 +17,10 @@ function buttonPress(){
                 clear();
             }
             else if(btns[i].classList.contains("operator")){
-                inputOperator(btns[i].innerText);
+                inputOperator(btns[i].textContent);
             }
-            else if(btns[i].classList.contains("equals")){
-                
+            else if(btns[i].classList.contains("equals")){                
+                operate(firstNumb, secondNumb, firstOperator);
             }
             else if(btns[i].classList.contains("backspace")){
                 
@@ -32,16 +32,49 @@ function buttonPress(){
 buttonPress();
 
 function inputNumber(numb) {
-
+    
     if(displayVal === 0) { displayVal = Number(numb); }
+    else if(displayVal == "+" || displayVal == "-" || displayVal == "*" || displayVal == "/") { 
+        displayVal = numb;
+    }
     else if (String(displayVal).length < 9) { 
         displayVal = displayVal + numb; 
     }
     updateDisplay();
 }
 
-function inputOperator(o){
+function inputOperator(o){ 
+    if(!firstNumb){
+        firstNumb = Number(displayVal);
+    } else if(!secondNumb) {
+        secondNumb = Number(displayVal);
+    } else {
+        firstNumb = Number(firstNumb) + Number(secondNumb);
+        secondNumb = null;
+    }
+    firstOperator = o;
     displayVal = o;
+    updateDisplay();
+}
+
+function operate(n1, n2, op){
+    
+    if(!n2){ n2 = displayVal;}
+
+    if(op == "+") {
+        result = Number(n1) + Number(n2);
+    }
+    else if(op == "-") {
+        result = n1 - n2;
+    }
+    else if(op == "*") {
+        result = n1 * n2;
+    }
+    else if(op == "/") {
+        result = n1 / n2;
+    }
+
+    displayVal = result;
     updateDisplay();
 }
 
